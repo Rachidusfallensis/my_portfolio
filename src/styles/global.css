@@ -19,6 +19,10 @@ img{max-width:100%}
 [hidden]{display:none !important}
 :focus-visible{outline:2px solid var(--trace);outline-offset:3px}
 h1,h2,h3{text-wrap:balance}
+/* body text is justified site-wide; hyphenation (from <html lang>) keeps narrow columns even */
+main p,main .acts li{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
+/* display-size lines and short labels stay ragged: justification would open gaps */
+main :is(.question,.ears,.role,.open,.deliv,.venue){text-align:left;-webkit-hyphens:manual;hyphens:manual}
 .wrap{max-width:1240px;margin:0 auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
 .muted{color:var(--graphite)}
 .mono{font-family:var(--mono)}

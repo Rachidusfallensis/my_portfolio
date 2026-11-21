@@ -120,3 +120,10 @@ Inspiré du réseau de points de joaomiguelrosa.com (canvas fait main : 60 point
 - **Ce que je fais :** grille 2×2 à filets partagés, sans numéros (ce n'est pas une séquence). Chaque offre finit par son livrable.
 - **Parcours :** registre en lignes, avec domaine, description et preuve chiffrée alignée à droite. Les chiffres quittent le bloc photo pour se retrouver ici, dans leur contexte.
 - **Bloc photo :** portrait 260 px, légende réduite au nom et aux lieux, ligne « Ouvert à », présentation, boutons et liens. Plus de rangée de chiffres.
+
+## Home intro and text alignment (Nov 2026)
+
+- Intro comes first: portrait on the left with the name and place under it, the role as a headline on its right, then a one-sentence lede, a three-fact proof strip (IEEE first-author paper, 9 SAFE partners, 43 h of teaching), "Open to", actions and links. The EARS statement and research areas follow below.
+- Mobile: a 112px portrait beside the role, name and place underneath, everything else stacked.
+- Body paragraphs are justified with automatic hyphenation (`main p`, experience bullets). Display-size lines (EARS statement, research question, role) and short labels stay left-aligned so justification never opens wide gaps.
+- Each fact appears once per page: the proof strip carries the figures, the Track record section carries the descriptions.

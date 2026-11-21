@@ -30,14 +30,16 @@ export const intro = {
     fr: "la R&D industrielle, l'accompagnement de projets et les postes académiques",
     en: 'industrial R&D, project support and academic positions'
   } as L10n,
+  role: { fr: 'Chercheur en IA et ingénierie système', en: 'AI and systems engineering researcher' } as L10n,
   lede: {
-    fr: "En thèse CIFRE entre Alouette AI et le LIUPPA, je conçois des agents IA qui facilitent l'adoption de l'ingénierie système à base de modèles (MBSE) dans l'industrie, de la spécification à l'évolution des systèmes cyber-physiques.",
-    en: 'I am a CIFRE PhD researcher between Alouette AI and LIUPPA. I design AI agents that help industry adopt model-based systems engineering (MBSE), from specification to the evolution of cyber-physical systems.'
+    fr: "En thèse CIFRE entre Alouette AI et le LIUPPA, je conçois des agents IA qui rendent l'ingénierie système à base de modèles (MBSE) adoptable dans l'industrie.",
+    en: 'CIFRE PhD between Alouette AI and LIUPPA: I design AI agents that make model-based systems engineering (MBSE) adoptable in industry.'
   } as L10n,
-  body: {
-    fr: "Je pars d'un problème concret, je le traduis en question de recherche appliquée et je livre une solution qui fonctionne : avec des partenaires industriels et européens dans ma thèse, et auprès des porteurs de projets que j'accompagne. J'enseigne aussi ce que je pratique.",
-    en: 'I start from a concrete problem, turn it into an applied research question and deliver a solution that works: with industrial and European partners in my PhD, and with the project owners I support. I also teach what I practise.'
-  } as L10n,
+  proof: [
+    { big: { fr: 'IEEE', en: 'IEEE' }, small: { fr: 'publication en premier auteur, 2026', en: 'first-author paper, 2026' } },
+    { big: { fr: '9', en: '9' }, small: { fr: 'partenaires européens, projet SAFE', en: 'European partners, SAFE project' } },
+    { big: { fr: '43 h', en: '43 h' }, small: { fr: "d'enseignement en M2 Industry 4.0", en: 'teaching in the M2 Industry 4.0' } }
+  ] as { big: L10n; small: L10n }[],
   contact: { fr: 'Me contacter', en: 'Get in touch' } as L10n,
   research: { fr: 'Voir la recherche', en: 'See the research' } as L10n,
   cv: { fr: 'Télécharger le CV', en: 'Download CV' } as L10n
@@ -87,11 +89,11 @@ export const record = {
     en: 'Industrial research, European projects, teaching and products, with partners including Eviden, Atos, NetCompany-Intrasoft, ISEP and UPPA.'
   } as L10n,
   items: [
-    { h: { fr: 'Recherche industrielle', en: 'Industrial research' }, p: { fr: "Thèse CIFRE entre un laboratoire et une startup : l'IA au service de l'ingénierie système à base de modèles pour les systèmes cyber-physiques.", en: 'CIFRE PhD between a research lab and a startup: AI for model-based systems engineering of cyber-physical systems.' }, big: { fr: 'IEEE', en: 'IEEE' }, small: { fr: 'publication en premier auteur, 2026', en: 'first-author paper, 2026' } },
-    { h: { fr: 'Projets européens', en: 'European projects' }, p: { fr: "Projet SAFE (programme Digital Europe) : réunions avec les experts de chaque partenaire, coordination entre équipes SOC, renseignement sur les menaces, architectes et chercheurs.", en: "SAFE project (Digital Europe programme): meetings with each partner's experts, coordination across SOC, threat intelligence, architecture and research teams." }, big: { fr: '9', en: '9' }, small: { fr: 'partenaires dans 5 pays', en: 'partners in 5 countries' } },
-    { h: { fr: 'Enseignement', en: 'Teaching' }, p: { fr: "Cours de systèmes cyber-physiques en M2 Industry 4.0 à l'UPPA, co-enseigné avec le Pr Ernesto Exposito.", en: 'Cyber-Physical Systems course in the M2 Industry 4.0 at UPPA, co-taught with Pr. Ernesto Exposito.' }, big: { fr: '43 h', en: '43 h' }, small: { fr: 'en 2026–2027', en: 'in 2026–2027' } },
-    { h: { fr: 'Produits et plateformes', en: 'Products and platforms' }, p: { fr: 'Produits IA, applications sur mesure et sites web, conçus ou accompagnés pour des laboratoires, des associations et des entreprises.', en: 'AI products, custom applications and websites, built or supported for labs, associations and companies.' }, big: { fr: '12', en: '12' }, small: { fr: 'projets', en: 'projects' } }
-  ] as { h: L10n; p: L10n; big: L10n; small: L10n }[]
+    { h: { fr: 'Recherche industrielle', en: 'Industrial research' }, p: { fr: "Thèse CIFRE entre un laboratoire et une startup : l'IA au service de l'ingénierie système à base de modèles pour les systèmes cyber-physiques.", en: 'CIFRE PhD between a research lab and a startup: AI for model-based systems engineering of cyber-physical systems.' } },
+    { h: { fr: 'Projets européens', en: 'European projects' }, p: { fr: "Projet SAFE (programme Digital Europe) : réunions avec les experts de chaque partenaire, coordination entre équipes SOC, renseignement sur les menaces, architectes et chercheurs.", en: "SAFE project (Digital Europe programme): meetings with each partner's experts, coordination across SOC, threat intelligence, architecture and research teams." } },
+    { h: { fr: 'Enseignement', en: 'Teaching' }, p: { fr: "Cours de systèmes cyber-physiques en M2 Industry 4.0 à l'UPPA, co-enseigné avec le Pr Ernesto Exposito.", en: 'Cyber-Physical Systems course in the M2 Industry 4.0 at UPPA, co-taught with Pr. Ernesto Exposito.' } },
+    { h: { fr: 'Produits et plateformes', en: 'Products and platforms' }, p: { fr: 'Produits IA, applications sur mesure et sites web, conçus ou accompagnés pour des laboratoires, des associations et des entreprises.', en: 'AI products, custom applications and websites, built or supported for labs, associations and companies.' } }
+  ] as { h: L10n; p: L10n }[]
 };
 
 export const pub = {
