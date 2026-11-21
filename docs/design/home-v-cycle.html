@@ -1,0 +1,210 @@
+<title>Accueil cycle en V</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: sentence left, V-cycle figure right (ARCADIA left leg, verification right leg, AI layer below, controlled-change loop above). */
+:root{
+  --paper:#F3F5F4; --paper-2:#E9EDEC; --ink:#16202C; --graphite:#5A6472; --rule:#CDD3D6; --trace:#A3195B; --on-ink:#F3F5F4;
+  --box:#8E98A3;
+  --oa:#F7E3CB; --sa:#DDEED5; --la:#DAE8F4; --pa:#F4EDC4;
+  --sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1722; --paper-2:#152030; --ink:#E6EAEF; --graphite:#98A2B0; --rule:#2A3442; --trace:#E2508F; --on-ink:#0F1722; --box:#55606E;
+  --oa:#3A2F25; --sa:#22332A; --la:#21303F; --pa:#36331F; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1722; --paper-2:#152030; --ink:#E6EAEF; --graphite:#98A2B0; --rule:#2A3442; --trace:#E2508F; --on-ink:#0F1722; --box:#55606E;
+  --oa:#3A2F25; --sa:#22332A; --la:#21303F; --pa:#36331F; color-scheme:dark;
+}
+:root:not([data-lang="en"]) .en,:root[data-lang="en"] .fr{display:none !important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.55 var(--sans)}
+:focus-visible{outline:2px solid var(--trace);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+
+header{border-bottom:1px solid var(--rule);position:sticky;top:env(safe-area-inset-top,0px);background:var(--paper);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.nav{display:flex;align-items:center;gap:24px;min-height:64px}
+.nav strong{margin-right:auto;font-size:18.75px;letter-spacing:-.01em}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--graphite)}
+.tool{font:500 14px var(--sans);color:var(--ink);background:none;border:1px solid var(--graphite);min-height:36px;padding:0 12px;cursor:pointer}
+.tools{display:flex;gap:8px}
+
+.note{margin:24px 0 0;font-size:15px;color:var(--graphite);border-left:2px solid var(--trace);padding-left:12px;max-width:72ch}
+
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;padding-block:56px 40px;align-items:center}
+.ears{font-weight:500;font-size:clamp(30px,3.4vw,44px);line-height:1.14;letter-spacing:-.022em;margin:0 0 24px}
+.ears b{font-weight:750}
+.ears .resp{text-decoration:underline;text-decoration-color:var(--trace);text-decoration-thickness:2px;text-underline-offset:.16em}
+.lede{margin:0 0 24px;max-width:52ch;color:var(--graphite)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font:600 16px var(--sans);border:1.5px solid var(--ink);color:var(--ink);text-decoration:none}
+.btn.primary{background:var(--ink);color:var(--on-ink)}
+
+figure{margin:0;min-width:0}
+.fig-scroll{overflow-x:auto}
+svg.v{display:block;width:100%;min-width:520px;height:auto}
+svg.v text{font-family:var(--sans);font-size:12.5px;fill:var(--ink)}
+svg.v .cap{font-size:11px;fill:var(--graphite)}
+svg.v .lvl{font:500 10px var(--mono);fill:var(--graphite)}
+svg.v rect.box{stroke:var(--box);stroke-width:1}
+svg.v .spine{fill:none;stroke:var(--box);stroke-width:1}
+svg.v .ver{fill:none;stroke:var(--box);stroke-width:1;stroke-dasharray:3 4}
+svg.v .bus{fill:none;stroke:color-mix(in srgb,var(--trace) 45%,var(--paper));stroke-width:1.25}
+svg.v .tag{fill:var(--paper);stroke:color-mix(in srgb,var(--trace) 60%,var(--paper));stroke-width:1}
+svg.v .tagt{font:600 10px var(--mono);fill:var(--trace)}
+svg.v .band{fill:var(--paper-2);stroke:var(--box);stroke-width:1}
+svg.v .loop{fill:none;stroke:var(--box);stroke-width:1.25}
+svg.v .arrow{fill:var(--box)}
+svg.v rect,svg.v path,svg.v line{transition:stroke .15s,stroke-width .15s,fill .15s}
+svg.v .hl{stroke:var(--trace) !important;stroke-width:2 !important}
+svg.v .arrow.hl{fill:var(--trace)}
+
+.legend{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.legend a{display:block;height:100%;border:1px solid var(--rule);padding:10px 14px;text-decoration:none;color:inherit;transition:border-color .15s}
+.legend a:hover,.legend a:focus-visible,.legend a.on{border-color:var(--trace)}
+.legend strong{display:block;font-size:15px;font-weight:650}
+.legend span{display:block;font-size:13.5px;color:var(--graphite)}
+
+.compare{padding-block:32px 72px;border-top:1px solid var(--rule)}
+.compare h2{font-size:23.4px;font-weight:600;letter-spacing:-.01em;margin:0 0 12px}
+.compare ul{margin:0;padding-left:18px;max-width:72ch}
+.compare li{margin-bottom:6px}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .nav ul{display:none}
+}
+@media (max-width:520px){.legend{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){svg.v rect,svg.v path,svg.v line,.legend a{transition:none}}
+</style>
+
+<header><div class="wrap nav">
+  <strong>Arona Fall</strong>
+  <ul><li><span class="fr">Recherche</span><span class="en">Research</span></li><li><span class="fr">Projets</span><span class="en">Projects</span></li><li><span class="fr">Expériences</span><span class="en">Experience</span></li><li>Contact</li></ul>
+  <div class="tools"><button class="tool" id="lang" type="button">EN</button><button class="tool" id="theme" type="button">Thème : clair</button></div>
+</div></header>
+
+<main class="wrap">
+  <p class="note"><span class="fr">Proposition B pour l'accueil. La phrase reste la même ; à droite, le cycle en V remplace la liste des domaines. Survolez un domaine pour voir où il agit dans le cycle.</span><span class="en">Option B for the home page. The sentence stays the same; on the right, the V-cycle replaces the list of areas. Hover an area to see where it acts in the cycle.</span></p>
+
+  <section class="hero">
+    <div>
+      <h1 class="ears">
+        <span class="fr"><b>Pendant</b> tout le cycle de vie d'un système cyber-physique, les agents IA que je conçois <span class="resp"><b>doivent</b> rendre le MBSE adoptable, avec des méthodes aussi sûres que l'exige l'ingénierie système.</span></span>
+        <span class="en"><b>While</b> a cyber-physical system moves through its life cycle, the AI agents I design <span class="resp"><b>shall</b> make MBSE adoptable, with methods as safe as systems engineering demands.</span></span>
+      </h1>
+      <p class="lede"><span class="fr">En thèse CIFRE entre Alouette AI et le LIUPPA. Je pars d'un problème concret, je le traduis en question de recherche appliquée et je livre une solution qui fonctionne.</span><span class="en">CIFRE PhD between Alouette AI and LIUPPA. I start from a concrete problem, turn it into an applied research question and deliver a solution that works.</span></p>
+      <div class="actions"><a class="btn primary" href="#top"><span class="fr">Me contacter</span><span class="en">Get in touch</span></a><a class="btn" href="#top"><span class="fr">Voir la recherche</span><span class="en">See the research</span></a></div>
+    </div>
+
+    <figure>
+      <div class="fig-scroll"><svg class="v" id="v" viewBox="0 0 600 420" role="img" aria-labelledby="v-title"><title id="v-title">Cycle en V</title></svg></div>
+      <ul class="legend" id="legend">
+        <li><a href="#top" data-d="req"><strong><span class="fr">Exigences assistées par IA</span><span class="en">AI-assisted requirements</span></strong><span><span class="fr">Exigences traçables jusqu'à leur source</span><span class="en">Requirements traced to their source</span></span></a></li>
+        <li><a href="#top" data-d="model"><strong><span class="fr">Modélisation ARCADIA / Capella</span><span class="en">ARCADIA / Capella modelling</span></strong><span><span class="fr">Du besoin opérationnel au physique</span><span class="en">From operational need to physical design</span></span></a></li>
+        <li><a href="#top" data-d="evo"><strong><span class="fr">Évolution contrôlée des modèles</span><span class="en">Controlled model evolution</span></strong><span><span class="fr">L'IA propose, des mécanismes vérifiables décident</span><span class="en">AI proposes, verifiable mechanisms decide</span></span></a></li>
+        <li><a href="#top" data-d="agents"><strong><span class="fr">Agents IA et graphes de connaissances</span><span class="en">AI agents and knowledge graphs</span></strong><span><span class="fr">Une couche qui assiste chaque étape</span><span class="en">A layer that assists each step</span></span></a></li>
+      </ul>
+    </figure>
+  </section>
+
+  <section class="compare">
+    <h2><span class="fr">Ce que cette variante change</span><span class="en">What this option changes</span></h2>
+    <ul>
+      <li><span class="fr">Le cycle en V est l'image que tout ingénieur système reconnaît. La branche gauche reprend les quatre niveaux ARCADIA, avec les teintes de couche de Capella.</span><span class="en">The V-cycle is the picture every systems engineer recognises. The left branch uses the four ARCADIA levels, with Capella's layer tints.</span></li>
+      <li><span class="fr">L'IA apparaît comme une couche d'assistance sous le cycle, reliée aux étapes qu'elle aide (marques « IA »). Elle n'est pas au centre : la méthode reste aux commandes.</span><span class="en">AI appears as a support layer under the cycle, linked to the steps it helps ("AI" tags). It is not at the centre: the method stays in charge.</span></li>
+      <li><span class="fr">Les pointillés horizontaux sont les liens de vérification classiques du V ; la boucle du haut représente l'évolution contrôlée du modèle.</span><span class="en">The horizontal dotted lines are the classic V verification links; the loop at the top stands for controlled model evolution.</span></li>
+      <li><span class="fr">Pas d'animation : le schéma est statique, seuls les survols le mettent en couleur.</span><span class="en">No animation: the diagram is static and only hovering adds colour.</span></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+(() => {
+  const root = document.documentElement, NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('v');
+  const store = { get(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e) {} } };
+  const W = 150, H = 36, Y0 = 52;
+  const left = [
+    { id:'oa', x:40,  y:Y0,     fill:'var(--oa)', lvl:'OA', fr:'Besoin opérationnel',   en:'Operational need' },
+    { id:'sa', x:72,  y:Y0+64,  fill:'var(--sa)', lvl:'SA', fr:'Exigences système',     en:'System requirements', ai:true },
+    { id:'la', x:104, y:Y0+128, fill:'var(--la)', lvl:'LA', fr:'Architecture logique',  en:'Logical architecture', ai:true },
+    { id:'pa', x:136, y:Y0+192, fill:'var(--pa)', lvl:'PA', fr:'Architecture physique', en:'Physical architecture', ai:true }
+  ];
+  const right = [
+    { x:410, y:Y0,     fr:'Validation',              en:'Validation' },
+    { x:378, y:Y0+64,  fr:'Vérification système',    en:'System verification' },
+    { x:346, y:Y0+128, fr:'Tests d’intégration', en:'Integration testing' },
+    { x:314, y:Y0+192, fr:'Intégration',             en:'Integration' }
+  ];
+  const bottom = { x:225, y:Y0+254, fr:'Réalisation', en:'Implementation' };
+  const bandY = 372;
+
+  const el = (tag, attrs, parent=svg) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent.appendChild(n); return n; };
+  const txt = (x, y, s, attrs={}) => { const t = el('text', Object.assign({x, y}, attrs)); t.textContent = s; return t; };
+
+  /* each drawn mark carries data-d = the research areas it belongs to */
+  function draw(){
+    const L = root.dataset.lang === 'en' ? 'en' : 'fr';
+    [...svg.children].forEach(n => { if (n.tagName !== 'title') n.remove(); });
+    svg.querySelector('title').textContent = L === 'fr' ? 'Cycle en V : niveaux ARCADIA à gauche, vérification à droite, agents IA en dessous' : 'V-cycle: ARCADIA levels on the left, verification on the right, AI agents below';
+
+    const pts = [...left, bottom, ...right.slice().reverse()].map(b => `${b.x + W/2},${b.y + H/2}`).join(' ');
+    el('polyline', { class:'spine', points:pts });
+
+    const cx = left[0].x + W/2;
+    el('path', { class:'loop', d:`M${right[0].x + W/2} ${Y0} V26 H${cx} V${Y0 - 8}`, 'data-d':'evo' });
+    el('path', { class:'arrow', d:`M${cx - 4} ${Y0 - 9} L${cx + 4} ${Y0 - 9} L${cx} ${Y0 - 1} Z`, 'data-d':'evo' });
+    txt(300, 18, L === 'fr' ? 'Évolution contrôlée du modèle' : 'Controlled model evolution', { class:'cap', 'text-anchor':'middle' });
+
+    left.forEach((b, i) => {
+      const r = right[i];
+      el('line', { class:'ver', x1:b.x + W, y1:b.y + H/2, x2:r.x, y2:r.y + H/2, 'data-d': i === 1 ? 'req' : 'none' });
+    });
+
+    left.filter(b => b.ai).forEach(b => el('path', { class:'bus', d:`M${b.x - 15} ${b.y + H/2 + 9} V${bandY}`, 'data-d':'agents' }));
+    el('rect', { class:'band', x:20, y:bandY, width:560, height:34, 'data-d':'agents' });
+    txt(34, bandY + 22, L === 'fr' ? 'Agents IA + graphe de connaissances : exigences, modèles, preuves, décisions' : 'AI agents + knowledge graph: requirements, models, evidence, decisions', { 'font-size':'12px' });
+
+    const box = (b, fill, d) => {
+      el('rect', { class:'box', x:b.x, y:b.y, width:W, height:H, fill, 'data-d':d });
+      txt(b.x + 10, b.y + 23, b[L]);
+    };
+    left.forEach(b => {
+      box(b, b.fill, b.id === 'sa' ? 'model req' : 'model');
+      txt(b.x + W - 8, b.y + 13, b.lvl, { class:'lvl', 'text-anchor':'end' });
+      if (b.ai) {
+        el('rect', { class:'tag', x:b.x - 26, y:b.y + H/2 - 9, width:22, height:18, 'data-d': b.id === 'sa' ? 'agents req' : 'agents' });
+        txt(b.x - 15, b.y + H/2 + 4, L === 'fr' ? 'IA' : 'AI', { class:'tagt', 'text-anchor':'middle' });
+      }
+    });
+    right.forEach(b => box(b, 'var(--paper)', 'none'));
+    box(bottom, 'var(--paper-2)', 'none');
+  }
+
+  function highlight(d, on){
+    svg.querySelectorAll('[data-d]').forEach(n => { if (n.getAttribute('data-d').split(' ').includes(d)) n.classList.toggle('hl', on); });
+  }
+  document.querySelectorAll('#legend a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+    ['mouseenter','focus'].forEach(ev => a.addEventListener(ev, () => { a.classList.add('on'); highlight(a.dataset.d, true); }));
+    ['mouseleave','blur'].forEach(ev => a.addEventListener(ev, () => { a.classList.remove('on'); highlight(a.dataset.d, false); }));
+  });
+
+  const tb = document.getElementById('theme');
+  let theme = store.get('af-theme'); if (theme !== 'dark') theme = 'light';
+  const tl = () => { const en = root.dataset.lang === 'en'; tb.textContent = en ? (theme === 'dark' ? 'Theme: dark' : 'Theme: light') : (theme === 'dark' ? 'Thème : sombre' : 'Thème : clair'); };
+  const applyTheme = () => { root.dataset.theme = theme; tl(); };
+  tb.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; store.set('af-theme', theme); applyTheme(); });
+
+  const lb = document.getElementById('lang');
+  const setLang = l => { root.dataset.lang = l; root.lang = l; lb.textContent = l === 'fr' ? 'EN' : 'FR'; store.set('af-lang', l); tl(); draw(); };
+  lb.addEventListener('click', () => setLang(root.dataset.lang === 'en' ? 'fr' : 'en'));
+
+  applyTheme(); setLang(store.get('af-lang') === 'en' ? 'en' : 'fr');
+})();
+</script>

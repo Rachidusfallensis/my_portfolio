@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arona Fall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F4; --ink:#16202C; --graphite:#5A6472; --rule:#CDD3D6; --trace:#A3195B;
+  --oa:#F5D9B8; --sa:#D3E9C8; --la:#CFE1F1; --pa:#F1E8B0;
+  --sans:"Schibsted Grotesk",system-ui,sans-serif; --mono:"Spline Sans Mono",ui-monospace,monospace;
+  --s0:15px; --s1:18.75px; --s2:23.4px; --s3:29.3px; --s4:36.6px; --s5:45.8px; --s6:57.2px;
+  --gutter:clamp(16px,4vw,56px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1722; --ink:#E6EAEF; --graphite:#98A2B0; --rule:#2A3442; --trace:#E2508F;
+  --oa:rgb(245 217 184/.18); --sa:rgb(211 233 200/.18); --la:rgb(207 225 241/.18); --pa:rgb(241 232 176/.18);
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.55 var(--sans)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--trace);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+
+/* nav */
+header{border-bottom:1px solid var(--rule)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px}
+.wordmark{font-weight:700;font-size:var(--s1);letter-spacing:-.01em;text-decoration:none}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:var(--s0)}
+.nav ul a{text-decoration:none;color:var(--graphite)}
+.nav ul a:hover{color:var(--ink)}
+.lang{font-size:var(--s0);color:var(--graphite)}
+.lang b{color:var(--ink);font-weight:600}
+
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:64px;padding-block:72px 56px}
+.reqid{font:500 14px/1 var(--mono);color:var(--graphite);margin:0 0 20px}
+.ears{font-weight:500;font-size:clamp(32px,4.1vw,52px);line-height:1.1;letter-spacing:-.022em;margin:0}
+.clause{display:inline-block;position:relative;padding-bottom:8px;margin-bottom:30px;
+  background:linear-gradient(var(--rule),var(--rule)) left bottom/100% 1.5px no-repeat}
+.clause::before,.clause::after{position:absolute;bottom:0}
+.clause::before{content:"";left:0;right:0;height:8px;border:1.5px solid var(--rule);border-top:0}
+.clause::after{content:attr(data-role);left:0;top:calc(100% + 7px);font:400 13px/1 var(--sans);letter-spacing:0;color:var(--graphite);white-space:nowrap}
+.clause .kw{font-weight:750}
+.ears .line{display:block}
+.ears .resp{background-image:linear-gradient(var(--trace),var(--trace))}
+.ears .resp::before{border-color:var(--trace)}
+
+.evidence{align-self:center;position:relative;z-index:1}
+.evidence h2{font-size:var(--s0);font-weight:500;color:var(--graphite);margin:0 0 12px}
+.evidence ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ev{display:block;background:var(--paper);border:1px solid var(--rule);padding:12px 14px;text-decoration:none;transition:border-color .15s}
+.ev strong{display:block;font-weight:600;font-size:16px;line-height:1.3}
+.ev span{display:block;font-size:14px;color:var(--graphite);line-height:1.35;margin-top:2px}
+.ev:hover,.ev:focus-visible,.ev.on{border-color:var(--trace)}
+.ev .id{font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere}
+
+svg.traces{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+svg.traces path{fill:none;stroke:color-mix(in srgb,var(--trace) 42%,var(--paper));stroke-width:1.5;transition:stroke .15s,stroke-width .15s}
+svg.traces path.on{stroke:var(--trace);stroke-width:2.25}
+svg.traces circle{fill:var(--trace)}
+
+/* intro */
+.intro{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;align-items:start;padding-block:8px 72px}
+.actor{border:1px solid var(--ink);margin:0;background:var(--paper)}
+.actor figcaption{font-size:13px;padding:5px 10px;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between}
+.actor figcaption i{font-style:normal;color:var(--graphite)}
+.actor img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+.intro p{margin:0 0 16px;max-width:60ch;font-size:var(--s1)}
+.intro p.lede{font-size:var(--s2);line-height:1.4;letter-spacing:-.01em}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--ink);text-decoration:none;font-weight:600;font-size:16px}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{border-color:var(--trace)}
+.btn.primary:hover{background:var(--trace);border-color:var(--trace)}
+.links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;font-size:var(--s0);color:var(--graphite)}
+.links a{text-underline-offset:3px;text-decoration-color:var(--rule)}
+
+/* affiliations */
+.affil{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:28px 0}
+.affil .row{display:flex;flex-wrap:wrap;align-items:center;gap:22px 44px}
+.affil p{margin:0 12px 0 0;font-size:var(--s0);color:var(--graphite)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:14px;color:var(--graphite)}
+.logo img{height:var(--h,30px);width:auto;filter:grayscale(1);opacity:.72;transition:filter .2s,opacity .2s}
+.logo:hover img,.logo:focus-visible img{filter:none;opacity:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo img{filter:grayscale(1) invert(1) brightness(1.4);opacity:.6}}
+
+/* parcours */
+.parcours{padding:72px 0 96px}
+.parcours h2{font-size:var(--s4);font-weight:600;letter-spacing:-.015em;margin:0 0 8px}
+.parcours .wrap > p{color:var(--graphite);margin:0 0 40px;max-width:60ch}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.steps li{position:relative;padding:22px 20px 0 0}
+.steps li::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;background:var(--paper);border:1.5px solid var(--ink)}
+.steps li.now::before{background:var(--trace);border-color:var(--trace)}
+.steps .n{font:500 13px/1 var(--mono);color:var(--graphite)}
+.steps h3{font-size:var(--s1);font-weight:650;line-height:1.25;margin:8px 0 6px;letter-spacing:-.005em}
+.steps p{margin:0;font-size:15.5px;line-height:1.5;color:var(--graphite)}
+.layer{display:inline-block;margin-top:10px;font-size:12.5px;padding:2px 7px;color:var(--ink)}
+.layer.oa{background:var(--oa)} .layer.sa{background:var(--sa)} .layer.la{background:var(--la)} .layer.pa{background:var(--pa)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:48px}
+  svg.traces{display:none}
+  .evidence ol{border-left:2px solid var(--trace);padding-left:14px}
+  .intro{grid-template-columns:120px 1fr;gap:20px}
+  .steps{grid-template-columns:1fr;border-top:0;border-left:1.5px solid var(--ink);gap:28px}
+  .steps li{padding:0 0 0 22px}
+  .steps li::before{top:4px;left:-6px}
+  .nav ul{display:none}
+}
+@media (max-width:520px){ .intro{grid-template-columns:1fr} .actor{max-width:160px} }
+
+@media (prefers-reduced-motion:no-preference){
+  .draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
+  .draw circle{opacity:0;animation:pop .2s ease-out forwards;animation-delay:.1s}
+  .evidence li{opacity:0;animation:pop .35s ease-out forwards;animation-delay:var(--d)}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{to{opacity:1}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="wordmark" href="#">Arona Fall</a>
+  <nav aria-label="Principale"><ul>
+    <li><a href="#">Recherche</a></li><li><a href="#">Projets</a></li><li><a href="#parcours">Parcours</a></li><li><a href="#">Contact</a></li>
+  </ul></nav>
+  <div class="lang"><b>FR</b> / <a href="#" lang="en">EN</a></div>
+</div></header>
+
+<main>
+<section class="wrap hero" id="hero">
+  <div>
+    <p class="reqid">REQ-AF-001</p>
+    <h1 class="ears">
+      <span class="line"><span class="clause" data-role="état"><span class="kw">Pendant</span> tout le cycle de vie d'un système cyber-physique,</span></span>
+      <span class="line"><span class="clause" data-role="système">les agents IA que je conçois</span></span>
+      <span class="line"><span class="clause resp" id="resp" data-role="réponse"><span class="kw">doivent</span> rendre le MBSE adoptable, avec des méthodes aussi sûres que l'exige l'ingénierie système.</span></span>
+    </h1>
+  </div>
+  <aside class="evidence" aria-labelledby="ev-title">
+    <h2 id="ev-title">Satisfaite par</h2>
+    <ol>
+      <li style="--d:.25s"><a class="ev" href="https://doi.org/10.1109/WETICE70595.2026.11772344" data-i="0"><strong>ARISE, publié à IEEE WETICE 2026</strong><span>Première contribution, sur les exigences</span><span class="id">doi:10.1109/WETICE70595.2026.11772344</span></a></li>
+      <li style="--d:.4s"><a class="ev" href="#" data-i="1"><strong>Projet européen SAFE</strong><span>Coordination des besoins avec 9 partenaires dans 5 pays</span></a></li>
+      <li style="--d:.55s"><a class="ev" href="#" data-i="2"><strong>Alouette AI, Station F Future 40</strong><span>Thèse CIFRE, R&amp;D en ingénierie industrielle</span></a></li>
+      <li style="--d:.7s"><a class="ev" href="#" data-i="3"><strong>Cours Systèmes cyber-physiques</strong><span>M2 Industry 4.0, UPPA, 43 h en 2026–2027</span></a></li>
+    </ol>
+  </aside>
+  <svg class="traces draw" aria-hidden="true"></svg>
+</section>
+
+<section class="wrap intro" aria-label="Présentation">
+  <figure class="actor">
+    <figcaption>Arona Fall</figcaption>
+    <img src="../../assets/photos/arona-fall-portrait.png" alt="Portrait d'Arona Fall" width="400" height="400">
+  </figure>
+  <div>
+    <p class="lede">En thèse CIFRE entre Alouette AI et le LIUPPA, je conçois des agents IA qui facilitent l'adoption de l'ingénierie système à base de modèles (MBSE) dans l'industrie, de la spécification à l'évolution des systèmes cyber-physiques.</p>
+    <p>Exigences, architecture, modèles Capella : l'IA propose, des mécanismes vérifiables décident. Je mène ces travaux de la question de recherche à la publication, avec des partenaires industriels et européens, et j'enseigne ce que je pratique.</p>
+    <div class="actions">
+      <a class="btn primary" href="#">Me contacter</a>
+      <a class="btn" href="#">Voir la recherche</a>
+    </div>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/arona-fall/">LinkedIn</a>
+      <a href="https://scholar.google.com/citations?user=G_k_8-4AAAAJ&amp;hl=en">Google Scholar</a>
+      <a href="https://orcid.org/0009-0002-9563-5326">ORCID</a>
+      <a href="https://github.com/Rachidusfallensis">GitHub</a>
+      <a href="#">CV (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<section class="affil" aria-label="Affiliations">
+  <div class="wrap row">
+    <p>Avec</p>
+    <a class="logo" href="#"><img style="--h:40px" src="../../assets/logos/institutions/uppa-color.svg" alt="Université de Pau et des Pays de l'Adour"></a>
+    <a class="logo" href="#"><img style="--h:44px" src="../../assets/logos/institutions/alouette-logo.png" alt="Alouette AI"></a>
+    <a class="logo" href="#"><img style="--h:20px" src="../../assets/logos/institutions/station-f.svg" alt="STATION F"><span>Future 40, 2026</span></a>
+    <a class="logo" href="#"><img style="--h:32px" src="../../assets/logos/institutions/ieee.svg" alt="IEEE"></a>
+    <a class="logo" href="#"><img style="--h:32px" src="../../assets/logos/projects/safe.png" alt="Projet SAFE"></a>
+  </div>
+</section>
+
+<section class="parcours" id="parcours">
+  <div class="wrap">
+    <h2>Parcours</h2>
+    <p>Chaque étape a nourri la suivante : un prototype de stage est devenu une publication IEEE, puis une thèse.</p>
+    <ol class="steps">
+      <li><span class="n">2025</span><h3>IREKIA, stage de M2</h3><p>Modèle ARCADIA d'un Fablab et premier prototype d'ARISE.</p></li>
+      <li><span class="n">2025</span><h3>SAFE, ingénieur de recherche</h3><p>Réunions d'experts avec 9 partenaires européens.</p></li>
+      <li><span class="n">depuis 2025</span><h3>CIFRE chez Alouette AI</h3><p>Au sein d'une startup sélectionnée au Future 40 de Station F.</p></li>
+      <li><span class="n">2026</span><h3>ARISE publié</h3><p>IEEE WETICE 2026, premier auteur.</p></li>
+      <li class="now"><span class="n">2026–27</span><h3>Enseignement</h3><p>Systèmes cyber-physiques, M2 Industry 4.0.</p></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<script>
+(() => {
+  const hero = document.getElementById('hero'), svg = hero.querySelector('svg.traces'), resp = document.getElementById('resp');
+  const evs = [...hero.querySelectorAll('.ev')];
+  const NS = 'http://www.w3.org/2000/svg';
+  function draw(){
+    svg.innerHTML = '';
+    if (getComputedStyle(svg).display === 'none') return;
+    const h = hero.getBoundingClientRect();
+    const rr = resp.getBoundingClientRect();
+    const sx = rr.right - h.left, sy = rr.bottom - h.top;
+    const busX = (sx + evs[0].getBoundingClientRect().left - h.left) / 2;
+    evs.forEach((ev,i) => {
+      const r = ev.getBoundingClientRect(); const ty = r.top - h.top + r.height/2, tx = r.left - h.left;
+      const p = document.createElementNS(NS,'path');
+      p.setAttribute('d',`M${sx} ${sy} H${busX} V${ty} H${tx}`);
+      p.dataset.i = i; p.style.setProperty('--d', (0.15 + i*0.15)+'s');
+      svg.appendChild(p); p.style.setProperty('--len', p.getTotalLength());
+    });
+    const dot = document.createElementNS(NS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',3.5);
+    svg.appendChild(dot);
+  }
+  const link = (i,on) => { svg.querySelector(`path[data-i="${i}"]`)?.classList.toggle('on',on); evs[i].classList.toggle('on',on); };
+  evs.forEach((ev,i) => {
+    ['mouseenter','focus'].forEach(e=>ev.addEventListener(e,()=>link(i,true)));
+    ['mouseleave','blur'].forEach(e=>ev.addEventListener(e,()=>link(i,false)));
+  });
+  if (location.hash === '#static') svg.classList.remove('draw');
+  document.fonts.ready.then(draw);
+  let t; addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{svg.classList.remove('draw');draw();},120)});
+})();
+</script>
+</body>
+</html>

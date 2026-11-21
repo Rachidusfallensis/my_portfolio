@@ -1,0 +1,73 @@
+{
+  "$description": "Portfolio Arona Fall: design tokens « Exigence satisfaite ». Format proche W3C DTCG. Source de vérité pour Tailwind (theme.extend) et les variables CSS.",
+  "color": {
+    "light": {
+      "paper":    { "$value": "#F3F5F4", "$type": "color", "$description": "Fond de page, papier calque froid" },
+      "paper-2":  { "$value": "#E9EDEC", "$type": "color", "$description": "Fond secondaire : survol, encadrés" },
+      "ink":      { "$value": "#16202C", "$type": "color", "$description": "Texte principal, bouton principal. 15.0:1 sur paper" },
+      "graphite": { "$value": "#5A6472", "$type": "color", "$description": "Texte secondaire, bordures de champs. 5.5:1 sur paper" },
+      "rule":     { "$value": "#CDD3D6", "$type": "color", "$description": "Filets et cadres décoratifs uniquement (1.4:1, jamais seul porteur de sens)" },
+      "trace":    { "$value": "#A3195B", "$type": "color", "$description": "Seule couleur vive : traçabilité, état actif, focus. 6.7:1 sur paper" },
+      "on-ink":   { "$value": "#F3F5F4", "$type": "color", "$description": "Texte sur fond ink" }
+    },
+    "dark": {
+      "paper":    { "$value": "#0F1722", "$type": "color" },
+      "paper-2":  { "$value": "#152030", "$type": "color" },
+      "ink":      { "$value": "#E6EAEF", "$type": "color", "$description": "14.9:1 sur paper" },
+      "graphite": { "$value": "#98A2B0", "$type": "color", "$description": "7.0:1 sur paper" },
+      "rule":     { "$value": "#2A3442", "$type": "color" },
+      "trace":    { "$value": "#E2508F", "$type": "color", "$description": "5.0:1 sur paper" },
+      "on-ink":   { "$value": "#0F1722", "$type": "color" }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": { "$value": ["Schibsted Grotesk", "system-ui", "-apple-system", "Segoe UI", "sans-serif"], "$type": "fontFamily", "$description": "Tout le texte" },
+      "mono": { "$value": ["Spline Sans Mono", "ui-monospace", "Menlo", "monospace"], "$type": "fontFamily", "$description": "Uniquement identifiants réels : DOI, BibTeX, numéros d'étape, dates de parcours" }
+    },
+    "weight": {
+      "regular": { "$value": 400 }, "medium": { "$value": 500 }, "semibold": { "$value": 600 },
+      "title": { "$value": 650 }, "bold": { "$value": 700 }, "keyword": { "$value": 750, "$description": "Mots-clés EARS (Pendant / doivent)" }
+    },
+    "size": {
+      "$description": "Échelle modulaire 1.25, base 15 px ; corps à 18 px",
+      "xs":   { "$value": "13px", "$description": "Catégories, légendes" },
+      "s0":   { "$value": "15px", "$description": "Navigation, méta" },
+      "body": { "$value": "18px" },
+      "s1":   { "$value": "18.75px", "$description": "Titres de carte (h3)" },
+      "s2":   { "$value": "23.4px", "$description": "Chapô, titre de publication" },
+      "s3":   { "$value": "29.3px", "$description": "Titres de section (h2)" },
+      "page": { "$value": "clamp(34px, 4.4vw, 52px)", "$description": "Titre de page (h1)" },
+      "hero": { "$value": "clamp(32px, 4vw, 50px)", "$description": "Phrase EARS" }
+    },
+    "lineHeight": { "tight": { "$value": 1.08 }, "heading": { "$value": 1.25 }, "lede": { "$value": 1.4 }, "body": { "$value": 1.55 } },
+    "tracking": { "display": { "$value": "-0.022em" }, "heading": { "$value": "-0.012em" }, "body": { "$value": "0" } },
+    "measure": { "body": { "$value": "68ch" }, "lede": { "$value": "62ch" } }
+  },
+  "space": {
+    "$description": "Base 4 px. Les valeurs hors échelle du prototype sont à ramener ici lors du portage Astro.",
+    "1": { "$value": "4px" }, "2": { "$value": "8px" }, "3": { "$value": "12px" }, "4": { "$value": "16px" },
+    "5": { "$value": "24px" }, "6": { "$value": "32px" }, "7": { "$value": "48px" }, "8": { "$value": "64px" },
+    "9": { "$value": "72px" }, "10": { "$value": "96px" },
+    "gutter": { "$value": "clamp(16px, 4vw, 56px)" },
+    "container": { "$value": "1240px" }
+  },
+  "border": {
+    "hair":   { "$value": "1px solid {color.rule}", "$description": "Cadres de composants, séparateurs" },
+    "strong": { "$value": "1.5px solid {color.ink}", "$description": "Filet d'ouverture d'un bloc important (publication)" },
+    "trace":  { "$value": "2px solid {color.trace}", "$description": "Exemple, état actif, lien satisfait" },
+    "field":  { "$value": "1px solid {color.graphite}", "$description": "Champs de formulaire : contraste ≥ 3:1 exigé" },
+    "radius": { "$value": "0", "$description": "Angles droits partout : cadres de composants Capella" }
+  },
+  "shadow": { "none": { "$value": "none", "$description": "Aucune ombre : la profondeur vient des filets" } },
+  "motion": {
+    "fast":  { "$value": "150ms", "$description": "Survol, bordure" },
+    "base":  { "$value": "200ms", "$description": "Ouverture d'une fiche (+ qui pivote)" },
+    "trace": { "$value": "900ms", "$description": "Tracé des liens du hero, seul moment orchestré" },
+    "ease":  { "$value": "cubic-bezier(.2,.7,.2,1)" },
+    "reduced": { "$value": "none", "$description": "prefers-reduced-motion : tout s'affiche directement" }
+  },
+  "breakpoint": {
+    "sm": { "$value": "520px" }, "md": { "$value": "720px" }, "lg": { "$value": "960px" }
+  }
+}

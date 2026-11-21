@@ -1,0 +1,255 @@
+<title>Système Exigence satisfaite</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F4; --paper-2:#E9EDEC; --ink:#16202C; --graphite:#5A6472; --rule:#CDD3D6; --trace:#A3195B; --on-ink:#F3F5F4;
+  --sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  --s0:15px; --s1:18.75px; --s2:23.4px; --s3:29.3px;
+  --gutter:clamp(16px,4vw,56px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1722; --paper-2:#152030; --ink:#E6EAEF; --graphite:#98A2B0; --rule:#2A3442; --trace:#E2508F; --on-ink:#0F1722; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1722; --paper-2:#152030; --ink:#E6EAEF; --graphite:#98A2B0; --rule:#2A3442; --trace:#E2508F; --on-ink:#0F1722; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.55 var(--sans)}
+:focus-visible{outline:2px solid var(--trace);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 max(var(--gutter),env(safe-area-inset-right,0px)) 0 max(var(--gutter),env(safe-area-inset-left,0px))}
+header{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:5}
+header .wrap{display:flex;align-items:center;gap:16px;min-height:60px}
+header strong{margin-right:auto;font-size:var(--s1)}
+nav{display:flex;gap:18px;font-size:var(--s0)}
+nav a{color:var(--graphite);text-decoration:none}
+nav a:hover{color:var(--ink)}
+.tool{font:500 14px var(--sans);color:var(--ink);background:none;border:1px solid var(--graphite);min-height:36px;padding:0 12px;cursor:pointer}
+h1{font-size:clamp(34px,4.4vw,52px);font-weight:600;letter-spacing:-.022em;line-height:1.08;margin:56px 0 14px;max-width:20ch}
+h2{font-size:var(--s3);font-weight:600;letter-spacing:-.012em;margin:0 0 8px}
+h3{font-size:var(--s1);font-weight:650;margin:0 0 4px}
+section{padding:56px 0;border-top:1px solid var(--rule)}
+.lede{font-size:var(--s1);color:var(--graphite);max-width:62ch;margin:0 0 40px}
+.note{color:var(--graphite);max-width:68ch;margin:0 0 28px}
+code,.mono{font-family:var(--mono);font-size:14px}
+
+.identity{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.identity div{border-top:1.5px solid var(--ink);padding-top:14px}
+.identity p{margin:0;color:var(--graphite);font-size:16px}
+
+.swatches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.theme-col{border:1px solid var(--rule);padding:20px}
+.theme-col.light{background:#F3F5F4;color:#16202C;border-color:#CDD3D6}
+.theme-col.dark{background:#0F1722;color:#E6EAEF;border-color:#2A3442}
+.theme-col h3{margin-bottom:14px}
+.sw{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 0;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent)}
+.sw i{width:44px;height:32px;border:1px solid color-mix(in srgb,currentColor 25%,transparent)}
+.sw span{font-size:15px}
+.sw small{font:400 13px var(--mono);opacity:.75}
+
+.type-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:16px 0;border-top:1px solid var(--rule);align-items:baseline}
+.type-row .k{font-size:13px;color:var(--graphite)}
+.ears{font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.12;letter-spacing:-.022em;margin:0}
+.ears b{font-weight:750}
+.ears .resp{text-decoration:underline;text-decoration-color:var(--trace);text-decoration-thickness:2px;text-underline-offset:.16em}
+
+.space{display:grid;gap:8px}
+.space div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:16px;align-items:center;font-size:14px;color:var(--graphite)}
+.space i{display:block;height:12px;background:var(--trace);opacity:.8}
+
+.comp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.comp > div > .k{display:block;font-size:13px;color:var(--graphite);margin-bottom:12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font:600 16px var(--sans);border:1.5px solid var(--ink);background:none;color:var(--ink);text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--on-ink)}
+.btn:hover{border-color:var(--trace)}
+.chip{font:500 14px var(--sans);min-height:36px;padding:0 12px;border:1px solid var(--rule);background:none;color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.proj{border:1px solid var(--rule)}
+.proj summary{list-style:none;cursor:pointer;padding:18px 20px;display:grid;gap:4px}
+.proj summary::-webkit-details-marker{display:none}
+.proj summary:hover{background:var(--paper-2)}
+.proj[open]{border-color:var(--ink)}
+.proj .top{display:flex;justify-content:space-between;font-size:13px;color:var(--graphite)}
+.proj .plus{font:500 16px var(--mono);transition:transform .2s}
+.proj[open] .plus{transform:rotate(45deg);color:var(--trace)}
+.proj .one{margin:0;font-size:16px;color:var(--graphite)}
+.proj .body{padding:0 20px 20px;font-size:16px}
+.proj .body p{margin:0 0 10px}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--graphite)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tags li{font:400 13px var(--mono);border:1px solid var(--rule);padding:2px 8px}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--rule)}
+.step .n{font:500 14px/1.9 var(--mono);color:var(--trace)}
+.step p{margin:0 0 8px;font-size:16px;color:var(--graphite)}
+.step p.ex{border-left:2px solid var(--trace);padding-left:12px;color:var(--ink)}
+.pub{display:grid;gap:4px;padding:18px 0;border-top:1.5px solid var(--ink);border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.pub .v{font-size:14px;color:var(--graphite)}
+.pub .t{font-size:var(--s2);font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.pub:hover .t{text-decoration:underline;text-decoration-color:var(--trace);text-underline-offset:4px}
+.pub .a{font-size:16px;color:var(--graphite)}
+.badge{display:inline-block;font-size:14px;border:1px solid var(--trace);color:var(--trace);padding:2px 8px}
+label{display:grid;gap:6px;font-size:15px;font-weight:600}
+input{font:400 17px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--graphite);min-height:44px;padding:0 12px}
+.trace-demo{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:0}
+.trace-demo svg{width:100%;height:132px;display:block}
+.trace-demo svg path{fill:none;stroke:color-mix(in srgb,var(--trace) 45%,var(--paper));stroke-width:1.5;vector-effect:non-scaling-stroke;transition:stroke .15s}
+.trace-demo svg path.on{stroke:var(--trace);stroke-width:2.5}
+.mini-dom{display:grid;gap:8px}
+.mini-dom span{border:1px solid var(--rule);padding:8px 10px;font-size:14px;transition:border-color .15s}
+.mini-dom span.on{border-color:var(--trace)}
+
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.rules ul{margin:0;padding-left:18px}
+.rules li{margin-bottom:8px;font-size:16px}
+.rules .dont h3{color:var(--trace)}
+footer{padding:40px 0 72px;color:var(--graphite);font-size:14px;border-top:1px solid var(--rule)}
+
+@media (max-width:760px){
+  .identity,.swatches,.comp,.rules{grid-template-columns:1fr}
+  .comp > div{grid-column:auto !important}
+  .type-row{grid-template-columns:1fr;gap:4px}
+  nav{display:none}
+  .trace-demo{grid-template-columns:1fr}
+  .trace-demo svg{display:none}
+}
+</style>
+
+<header><div class="wrap">
+  <strong>Arona Fall</strong>
+  <nav aria-label="Sections"><a href="#identite">Identité</a><a href="#couleurs">Couleurs</a><a href="#typo">Typographie</a><a href="#espace">Espacement</a><a href="#composants">Composants</a><a href="#regles">Règles</a></nav>
+  <button class="tool" id="theme" type="button">Thème : clair</button>
+</div></header>
+
+<main class="wrap">
+  <h1>Système de design «&nbsp;Exigence satisfaite&nbsp;»</h1>
+  <p class="lede">Les jetons et composants du portfolio. Chaque choix sert une identité : un chercheur-ingénieur qui part d'un problème réel, le formule en question de recherche appliquée et livre une solution vérifiable.</p>
+
+  <section id="identite">
+    <h2>Identité</h2>
+    <p class="note">Trois promesses, chacune portée par un élément visuel précis. Rien d'autre n'est décoratif.</p>
+    <div class="identity">
+      <div><h3>Crédible</h3><p>Chaque affirmation a sa preuve : DOI, heures d'enseignement, partenaires nommés. Visuellement : filets, angles droits, aucune ombre, comme un document d'ingénierie.</p></div>
+      <div><h3>Recherche appliquée</h3><p>La phrase EARS du hero et ses liens de traçabilité vers les domaines. La couleur trace marque toujours un lien entre une affirmation et ce qui la satisfait.</p></div>
+      <div><h3>Accompagnement</h3><p>La démarche en quatre étapes (problème, question, expérience, solution) et des fiches projet qui commencent toutes par le problème du client ou de l'équipe.</p></div>
+    </div>
+  </section>
+
+  <section id="couleurs">
+    <h2>Couleurs</h2>
+    <p class="note">Une seule couleur vive, <b>trace</b>, réservée aux liens de traçabilité, aux états actifs et au focus. Les contrastes sont mesurés sur <code>paper</code> ; tout le texte passe le niveau AA.</p>
+    <div class="swatches">
+      <div class="theme-col light"><h3>Clair</h3>
+        <div class="sw"><i style="background:#F3F5F4"></i><span>paper, fond</span><small>#F3F5F4</small></div>
+        <div class="sw"><i style="background:#E9EDEC"></i><span>paper-2, survol</span><small>#E9EDEC</small></div>
+        <div class="sw"><i style="background:#16202C"></i><span>ink, texte (15.0:1)</span><small>#16202C</small></div>
+        <div class="sw"><i style="background:#5A6472"></i><span>graphite, secondaire (5.5:1)</span><small>#5A6472</small></div>
+        <div class="sw"><i style="background:#CDD3D6"></i><span>rule, filets</span><small>#CDD3D6</small></div>
+        <div class="sw"><i style="background:#A3195B"></i><span>trace, accent (6.7:1)</span><small>#A3195B</small></div>
+      </div>
+      <div class="theme-col dark"><h3>Sombre</h3>
+        <div class="sw"><i style="background:#0F1722"></i><span>paper, fond</span><small>#0F1722</small></div>
+        <div class="sw"><i style="background:#152030"></i><span>paper-2, survol</span><small>#152030</small></div>
+        <div class="sw"><i style="background:#E6EAEF"></i><span>ink, texte (14.9:1)</span><small>#E6EAEF</small></div>
+        <div class="sw"><i style="background:#98A2B0"></i><span>graphite, secondaire (7.0:1)</span><small>#98A2B0</small></div>
+        <div class="sw"><i style="background:#2A3442"></i><span>rule, filets</span><small>#2A3442</small></div>
+        <div class="sw"><i style="background:#E2508F"></i><span>trace, accent (5.0:1)</span><small>#E2508F</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="typo">
+    <h2>Typographie</h2>
+    <p class="note">Schibsted Grotesk pour tout le texte. Spline Sans Mono uniquement pour ce qui est réellement un identifiant (DOI, BibTeX, numéros d'étape). Échelle 1,25.</p>
+    <div class="type-row"><span class="k">Hero, 32 à 50 px, 500</span><p class="ears"><b>Pendant</b> tout le cycle de vie d'un système cyber-physique, les agents IA que je conçois <span class="resp"><b>doivent</b> rendre le MBSE adoptable.</span></p></div>
+    <div class="type-row"><span class="k">Page, 34 à 52 px, 600</span><span style="font-size:clamp(34px,4.4vw,52px);font-weight:600;letter-spacing:-.022em;line-height:1.08">Projets</span></div>
+    <div class="type-row"><span class="k">Section, 29.3 px, 600</span><span style="font-size:var(--s3);font-weight:600;letter-spacing:-.012em">Du problème à la solution</span></div>
+    <div class="type-row"><span class="k">Chapô, 23.4 px, 400</span><span style="font-size:var(--s2);line-height:1.4">Je pars d'un problème concret et je livre une solution qui fonctionne.</span></div>
+    <div class="type-row"><span class="k">Carte, 18.75 px, 650</span><span style="font-size:var(--s1);font-weight:650">Transcript-Réécoute</span></div>
+    <div class="type-row"><span class="k">Corps, 18 px, 1.55</span><span>Les lignes de texte courant restent sous 68 caractères pour rester lisibles.</span></div>
+    <div class="type-row"><span class="k">Méta, 13 à 15 px</span><span style="font-size:13px;color:var(--graphite)">Recherche appliquée, thèse</span></div>
+    <div class="type-row"><span class="k">Identifiant, mono 14 px</span><span class="mono">10.1109/WETICE70595.2026.11772344</span></div>
+  </section>
+
+  <section id="espace">
+    <h2>Espacement</h2>
+    <p class="note">Base 4 px. Gouttière fluide de 16 à 56 px, conteneur de 1240 px, alignement à gauche.</p>
+    <div class="space">
+      <div>4<i style="width:4px"></i></div><div>8<i style="width:8px"></i></div><div>12<i style="width:12px"></i></div><div>16<i style="width:16px"></i></div>
+      <div>24<i style="width:24px"></i></div><div>32<i style="width:32px"></i></div><div>48<i style="width:48px"></i></div><div>64<i style="width:64px"></i></div><div>96<i style="width:96px"></i></div>
+    </div>
+  </section>
+
+  <section id="composants">
+    <h2>Composants</h2>
+    <p class="note">Angles droits, filets d'un pixel, aucune ombre. Survolez et cliquez : les états sont ceux du site.</p>
+    <div class="comp">
+      <div><span class="k">Boutons</span><div class="row"><a class="btn primary" href="#composants">Me contacter</a><a class="btn" href="#composants">Voir la recherche</a></div></div>
+      <div><span class="k">Filtres de catégorie</span><div class="row" id="chips"><button class="chip" type="button" aria-pressed="true">Tous</button><button class="chip" type="button" aria-pressed="false">Recherche appliquée</button><button class="chip" type="button" aria-pressed="false">Produits IA</button></div></div>
+      <div><span class="k">Fiche projet (cliquer pour ouvrir)</span>
+        <details class="proj"><summary><span class="top"><span>Produit IA</span><span class="plus">+</span></span><h3>Baṣīra</h3><p class="one">Une veille scientifique pour les laboratoires, qui trie les nouveaux articles selon leurs axes de recherche.</p></summary>
+          <div class="body"><p><b class="lbl">Problème</b>Une équipe ne peut pas lire tout ce qui paraît.</p><p><b class="lbl">Réponse</b>Chaque équipe branche ses propres modèles ; le système note et synthétise.</p><ul class="tags"><li>FastAPI</li><li>React</li></ul></div></details>
+      </div>
+      <div><span class="k">Étape de démarche, avec exemple</span>
+        <div class="step"><span class="n">3</span><div><h3>Expérimenter</h3><p>Construire un prototype et l'évaluer avec des données et des experts.</p><p class="ex">Architecture multi-agents évaluée avec des experts du projet européen SAFE.</p></div></div>
+      </div>
+      <div><span class="k">Publication</span>
+        <a class="pub" href="#composants"><span class="v">IEEE WETICE 2026</span><span class="t">ARISE: A Multi-Agent Architecture for Requirements Specification in MBSE Workflows</span><span class="a"><b>A. Fall</b>, N. Evain, E. Exposito et al.</span></a>
+      </div>
+      <div><span class="k">Distinction et champ de formulaire</span>
+        <p style="margin:0 0 16px"><span class="badge">Alouette AI, sélectionnée au Future 40 de Station F (2026)</span></p>
+        <label>Nom<input type="text" placeholder="Votre nom"></label>
+      </div>
+      <div style="grid-column:1/-1"><span class="k">Lien de traçabilité (survolez un domaine)</span>
+        <div class="trace-demo">
+          <p class="ears" style="font-size:24px">… <span class="resp"><b>doivent</b> rendre le MBSE adoptable.</span></p>
+          <svg viewBox="0 0 56 132" preserveAspectRatio="none" aria-hidden="true"><path data-i="0" d="M0 66 H28 V20 H56"/><path data-i="1" d="M0 66 H56"/><path data-i="2" d="M0 66 H28 V112 H56"/></svg>
+          <div class="mini-dom"><span data-i="0">Exigences assistées par IA</span><span data-i="1">Évolution contrôlée des modèles</span><span data-i="2">Agents IA et graphes de connaissances</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="regles">
+    <h2>Règles</h2>
+    <div class="rules">
+      <div><h3>À faire</h3><ul>
+        <li>Ouvrir chaque projet par le problème, puis la réponse, le rôle et la stack.</li>
+        <li>Adosser chaque affirmation à une preuve vérifiable (DOI, heures, partenaires).</li>
+        <li>Réserver <b>trace</b> aux liens, à l'état actif et au focus.</li>
+        <li>Numéroter seulement ce qui est une vraie séquence (démarche, trajectoire).</li>
+        <li>Garder FR et EN strictement parallèles, clair et sombre testés ensemble.</li>
+      </ul></div>
+      <div class="dont"><h3>À éviter</h3><ul>
+        <li>Ombres, dégradés, coins arrondis, effet verre.</li>
+        <li>Surtitres en capitales, mot isolé en couleur dans un titre.</li>
+        <li>Mono pour décorer des libellés.</li>
+        <li>« Passionné », « innovant », « expert en », gains non mesurés.</li>
+        <li>Animations au défilement : un seul moment animé, le tracé du hero.</li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Jetons : docs/design/design-tokens.json. Justification : docs/DESIGN.md.</div></footer>
+
+<script>
+(() => {
+  const root = document.documentElement, btn = document.getElementById('theme');
+  const label = {light:'Thème : clair', dark:'Thème : sombre'};
+  let t = 'light';
+  try { t = localStorage.getItem('af-theme') || 'light'; } catch(e) {}
+  if (!(t in label)) t = 'light';
+  const apply = () => { root.dataset.theme = t; btn.textContent = label[t]; btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false'); };
+  btn.addEventListener('click', () => { t = t === 'light' ? 'dark' : 'light'; try { localStorage.setItem('af-theme', t); } catch(e) {} apply(); });
+  apply();
+  const chips = [...document.querySelectorAll('#chips .chip')];
+  chips.forEach(c => c.addEventListener('click', () => chips.forEach(x => x.setAttribute('aria-pressed', x === c ? 'true' : 'false'))));
+  document.querySelectorAll('.mini-dom span').forEach(s => {
+    const p = document.querySelector(`.trace-demo path[data-i="${s.dataset.i}"]`);
+    s.addEventListener('mouseenter', () => { p.classList.add('on'); s.classList.add('on'); });
+    s.addEventListener('mouseleave', () => { p.classList.remove('on'); s.classList.remove('on'); });
+  });
+})();
+</script>
