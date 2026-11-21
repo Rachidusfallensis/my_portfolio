@@ -70,7 +70,7 @@ export const xps: Xp[] = [
     title: { fr: 'Stage de M2, conception système guidée par l\'IA', en: 'MSc internship, AI-guided systems design' },
     where: 'LIUPPA / IREKIA, Anglet',
     acts: [
-      { fr: "Modélisé le Fablab Ingénierie & Numérique avec ARCADIA, des besoins au niveau physique.", en: 'Modelled the Engineering & Digital Fablab with ARCADIA, from needs to physical level.' },
+      { fr: "Modélisé le Fablab Ingénierie & Numérique avec ARCADIA, de l'analyse opérationnelle à l'architecture physique.", en: 'Modelled the Engineering & Digital Fablab with ARCADIA, from operational analysis to physical architecture.' },
       { fr: "Prototypé la première version d'ARISE, point de départ de la thèse.", en: 'Prototyped the first version of ARISE, the starting point of the PhD.' },
       { fr: 'Comparé plusieurs approches RAG et GraphRAG ; assuré le support technique des Fablabs.', en: 'Compared RAG and GraphRAG approaches; provided technical support to the Fablabs.' }
     ]

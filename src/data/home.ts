@@ -16,8 +16,8 @@ export const hero = {
 export const areasTitle: L10n = { fr: 'Domaines de recherche', en: 'Research areas' };
 
 export const areas: { id: string; title: L10n; sub: L10n }[] = [
-  { id: 'd-req', title: { fr: 'Exigences assistées par IA', en: 'AI-assisted requirements' }, sub: { fr: 'Extraire et éliciter des exigences traçables', en: 'Extracting and eliciting traceable requirements' } },
-  { id: 'd-model', title: { fr: 'Modélisation ARCADIA / Capella', en: 'ARCADIA / Capella modelling' }, sub: { fr: 'Architecture des systèmes, des besoins au physique', en: 'System architecture, from needs to physical design' } },
+  { id: 'd-req', title: { fr: 'Ingénierie système assistée par IA', en: 'AI-assisted systems engineering' }, sub: { fr: 'Exigences, architecture, vérification : tout le cycle de vie', en: 'Requirements, architecture, verification: the whole life cycle' } },
+  { id: 'd-model', title: { fr: 'Modélisation ARCADIA / Capella', en: 'ARCADIA / Capella modelling' }, sub: { fr: "Modéliser l'architecture d'un système avec la méthode ARCADIA", en: 'Modelling system architecture with the ARCADIA method' } },
   { id: 'd-evo', title: { fr: 'Évolution contrôlée des modèles', en: 'Controlled model evolution' }, sub: { fr: "L'IA propose, des mécanismes vérifiables décident", en: 'AI proposes, verifiable mechanisms decide' } },
   { id: 'd-agents', title: { fr: 'Agents IA et graphes de connaissances', en: 'AI agents and knowledge graphs' }, sub: { fr: 'Multi-agents, RAG, GraphRAG, modèles locaux', en: 'Multi-agent systems, RAG, GraphRAG, local models' } }
 ];

@@ -191,7 +191,7 @@ Blog          « À venir » (non prioritaire)
 Contact       Formulaire + LinkedIn, Scholar, ORCID, GitHub + CV
 ```
 - **Tout est bilingue FR/EN** et existe en **mode clair et en mode sombre**, avec un sélecteur de langue et un sélecteur de thème dans l'en-tête. Le thème par défaut suit celui du système.
-- **Hero (révisé le 20/11)** : la phrase EARS est conservée, mais sans annotations (« état », « système », « réponse ») ni identifiant REQ. Les liens de traçabilité pointent vers les **domaines de recherche** (exigences assistées par IA, modélisation ARCADIA/Capella, évolution contrôlée des modèles, agents IA et graphes de connaissances), qui mènent à la page Recherche. On ne met ni Alouette ni le cours dans le hero.
+- **Hero (révisé le 20/11)** : la phrase EARS est conservée, mais sans annotations (« état », « système », « réponse ») ni identifiant REQ. Les liens de traçabilité pointent vers les **domaines de recherche** (ingénierie système assistée par IA, modélisation ARCADIA/Capella, évolution contrôlée des modèles, agents IA et graphes de connaissances), qui mènent à la page Recherche. On ne met ni Alouette ni le cours dans le hero.
 - La photo est sobre : pas de cadre « acteur ».
 
 ## 4. Exigences fonctionnelles
