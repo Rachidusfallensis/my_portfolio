@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../../i18n/ui';
+import type { Project } from '../../data/projects';
+interface Props { project: Project; lang: Lang }
+const { project: p, lang } = Astro.props;
+const labels = lang === 'fr'
+  ? { problem: 'Problème', approach: 'Réponse' }
+  : { problem: 'Problem', approach: 'Approach' };
+---
+<details class="proj" data-k={p.key}>
+  <summary>
+    <span class="top"><span>{p.category[lang]}</span><span class="plus" aria-hidden="true">+</span></span>
+    <h3>{p.title[lang]}</h3>
+    <p class="one">{p.one[lang]}</p>
+  </summary>
+  <div class="body">
+    {p.problem && <p><b class="lbl">{labels.problem}</b>{p.problem[lang]}</p>}
+    <p><b class="lbl">{labels.approach}</b>{p.approach[lang]}</p>
+    {p.role && <p class="muted">{p.role[lang]}</p>}
+    {p.tags && <ul class="tags">{p.tags.map((t) => <li>{typeof t === 'string' ? t : t[lang]}</li>)}</ul>}
+  </div>
+</details>

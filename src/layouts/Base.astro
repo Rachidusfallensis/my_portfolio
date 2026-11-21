@@ -1,16 +1,18 @@
 ---
 import '../styles/global.css';
 import { nav, routes, url, type Lang, type RouteKey } from '../i18n/ui';
+import Seo from '../components/Seo.astro';
 
 interface Props {
   lang: Lang;
   route: RouteKey;
   title: string;        // page title without the site name
   description: string;
+  standalone?: boolean; // e.g. 404: use `title` as-is and add noindex
 }
-const { lang, route, title, description } = Astro.props;
+const { lang, route, title, description, standalone = false } = Astro.props;
 const other: Lang = lang === 'fr' ? 'en' : 'fr';
-const fullTitle = route === 'home' ? 'Arona Fall' + (lang === 'fr' ? ', IA et ingénierie système' : ', AI and systems engineering') : `${title} | Arona Fall`;
+const fullTitle = standalone ? `${title} | Arona Fall` : route === 'home' ? 'Arona Fall' + (lang === 'fr' ? ', IA et ingénierie système' : ', AI and systems engineering') : `${title} | Arona Fall`;
 const canonical = new URL(url(routes[route][lang]), Astro.site).href;
 const alt = (l: Lang) => new URL(url(routes[route][l]), Astro.site).href;
 ---
@@ -21,6 +23,8 @@ const alt = (l: Lang) => new URL(url(routes[route][l]), Astro.site).href;
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
+  {standalone && <meta name="robots" content="noindex" />}
+  <Seo lang={lang} title={fullTitle} description={description} path={routes[route][lang]} />
   <link rel="canonical" href={canonical} />
   <link rel="alternate" hreflang="fr" href={alt('fr')} />
   <link rel="alternate" hreflang="en" href={alt('en')} />

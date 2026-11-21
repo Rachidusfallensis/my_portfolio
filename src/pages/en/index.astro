@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import HomePage from '../../components/home/HomePage.astro';
+import { metaDescription } from '../../data/home';
 ---
-<Base lang="en" route="home" title="Home" description="Home">
-  <div class="wrap page-head"><h1>Home</h1></div>
+<Base lang="en" route="home" title="Arona Fall | AI agents for systems engineering (MBSE)" description={metaDescription.en}>
+  <HomePage lang="en" />
 </Base>

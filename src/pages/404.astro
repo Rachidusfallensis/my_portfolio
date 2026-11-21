@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../i18n/ui';
+---
+<Base lang="fr" route="home" standalone title="Page introuvable / Page not found" description="Page introuvable. Page not found.">
+  <div class="wrap page-head">
+    <h1>Page introuvable</h1>
+    <p>La page demandée n'existe pas.</p>
+    <p><a href={url('/')}>Retour à l'accueil</a></p>
+    <hr />
+    <h2 lang="en">Page not found</h2>
+    <p lang="en">The page you requested does not exist.</p>
+    <p lang="en"><a href={url('/en/')} hreflang="en">Back to home</a></p>
+  </div>
+</Base>

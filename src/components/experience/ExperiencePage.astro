@@ -1,0 +1,78 @@
+---
+import { type Lang, url, links } from '../../i18n/ui';
+import { head, xps, education, skills, certs } from '../../data/experience';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = (s: any): string => (typeof s === 'string' ? s : s[lang]);
+const asset = (f: string) => url(`/assets/${f}`);
+---
+<div class="wrap">
+  <div class="page-head">
+    <h1>{head.title[lang]}</h1>
+    <p>{head.lede[lang]}</p>
+    <p class="head-actions"><a class="btn" href={url(links.cv)} download="Arona-Fall-CV.pdf" target="_blank" rel="noopener">{head.cv[lang]}</a></p>
+  </div>
+
+  {xps.map((x) => (
+    <article class="xp">
+      <div>
+        <div class="when">{tr(x.when)}</div>
+        <div class="org">{x.logos.map((l) => <img src={asset(l.src)} alt={l.alt} />)}</div>
+      </div>
+      <div>
+        <h3>{x.title[lang]}</h3>
+        <p class="where">{tr(x.where)}</p>
+        {x.badge && <span class="badge">{x.badge[lang]}</span>}
+        {x.ctx && <p class="ctx">{x.ctx[lang]}</p>}
+        <ul class="acts">{x.acts.map((a) => <li>{a[lang]}</li>)}</ul>
+        {x.partners && (
+          <div class="partners" aria-label="SAFE partners">
+            {x.partners.logos.map((l) => <img src={asset(l.src)} alt={l.alt} />)}
+            <span class="eu"><img src={asset(x.partners.eu.src)} alt={x.partners.eu.alt} /></span>
+          </div>
+        )}
+      </div>
+    </article>
+  ))}
+
+  <details class="fold"><summary>{education.title[lang]}</summary>
+    <ul class="edu">
+      {education.items.map((e) => <li><span class="mono muted">{e.when}</span><span>{e.t[lang]}</span></li>)}
+    </ul>
+  </details>
+  <details class="fold"><summary>{skills.title[lang]}</summary>
+    <div class="skills">
+      {skills.items.map((s) => <div><h4>{s.h[lang]}</h4><p>{tr(s.p)}</p></div>)}
+    </div>
+  </details>
+  <details class="fold"><summary>Certifications</summary>
+    <p class="muted">{certs}</p>
+  </details>
+</div>
+
+<style>
+  .xp{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;padding:28px 0;border-top:1px solid var(--rule)}
+  .xp .when{font:500 14px/1.6 var(--mono);color:var(--graphite)}
+  .xp .org{display:flex;align-items:center;gap:12px;margin-top:10px}
+  .xp .org img{height:28px;width:auto;filter:var(--logo-filter);opacity:var(--logo-op)}
+  .xp h3{margin:0;font-size:var(--s2);font-weight:600;letter-spacing:-.01em;line-height:1.25}
+  .xp .where{margin:4px 0 12px;color:var(--graphite);font-size:16px}
+  .xp .ctx{margin:0 0 12px;max-width:68ch}
+  .xp ul.acts{margin:0;padding-left:18px;max-width:68ch}
+  .xp ul.acts li{margin-bottom:6px}
+  .badge{display:inline-block;font-size:13.5px;font-weight:600;border:1px solid var(--trace);color:var(--trace);padding:2px 8px;margin:0 0 12px}
+  .partners{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--rule)}
+  .partners img{height:24px;width:auto;filter:var(--logo-filter);opacity:var(--logo-op)}
+  .partners .eu img{height:30px}
+  details.fold{border-top:1px solid var(--rule);padding:16px 0}
+  details.fold summary{cursor:pointer;font-weight:650;font-size:var(--s1)}
+  .edu{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:14px}
+  .edu li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px}
+  .skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:16px}
+  .skills h4{margin:0 0 4px;font-size:16px}
+  .skills p{margin:0;font-size:15.5px;color:var(--graphite)}
+  @media (max-width:960px){
+    .skills{grid-template-columns:1fr}
+    .xp,.edu li{grid-template-columns:1fr;gap:8px}
+  }
+</style>

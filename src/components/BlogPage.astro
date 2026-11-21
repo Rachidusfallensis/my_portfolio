@@ -1,0 +1,27 @@
+---
+import { routes, url, type Lang } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+---
+<div class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Blog</h1>
+      <p>{fr ? "Notes de recherche sur l'IA et l'ingénierie système." : 'Research notes on AI and systems engineering.'}</p>
+    </div>
+    <div class="soon-box">
+      <p><strong>{fr ? 'Les premiers articles arrivent bientôt.' : 'The first posts are on their way.'}</strong></p>
+      <p class="muted">{fr
+        ? "En attendant, la publication ARISE et les projets donnent le détail des travaux."
+        : 'Meanwhile, the ARISE paper and the projects cover the work in detail.'}</p>
+      <div class="actions"><a class="btn" href={url(routes.research[lang])}>{fr ? 'Voir la recherche' : 'See the research'}</a></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .soon-box{border:1px dashed var(--rule);padding:32px;max-width:640px}
+  .soon-box p{margin:0 0 8px}
+  .actions{margin-top:16px}
+</style>

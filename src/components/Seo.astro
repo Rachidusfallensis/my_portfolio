@@ -1,0 +1,62 @@
+---
+import { links, url, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;        // full page title
+  description: string;
+  path: string;         // path of this page in `lang`, e.g. '/recherche/'
+}
+const { lang, title, description, path } = Astro.props;
+
+const abs = (p: string) => new URL(url(p), Astro.site).href;
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const ogLocale = (l: Lang) => (l === 'fr' ? 'fr_FR' : 'en_US');
+
+const pageUrl = abs(path);
+const image = abs('/og.png');
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Arona Fall',
+  jobTitle: lang === 'fr'
+    ? 'Doctorant CIFRE en IA et ingénierie des systèmes à base de modèles'
+    : 'CIFRE PhD researcher in AI and model-based systems engineering',
+  url: abs('/'),
+  image: abs('/assets/portrait.webp'),
+  affiliation: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: "Université de Pau et des Pays de l'Adour",
+      alternateName: 'UPPA',
+      department: { '@type': 'Organization', name: 'LIUPPA' }
+    },
+    { '@type': 'Organization', name: 'Alouette AI' }
+  ],
+  sameAs: [links.linkedin, links.scholar, links.orcid, links.github],
+  knowsAbout: [
+    'MBSE',
+    'systems engineering',
+    'AI agents',
+    'requirements engineering',
+    'ARCADIA',
+    'Capella'
+  ]
+};
+---
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Arona Fall" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={ogLocale(lang)} />
+<meta property="og:locale:alternate" content={ogLocale(other)} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<script type="application/ld+json" set:html={JSON.stringify(person)} />

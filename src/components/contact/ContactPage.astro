@@ -1,0 +1,102 @@
+---
+import { FORMSPREE_ENDPOINT, links, url, type Lang } from '../../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const inactive = FORMSPREE_ENDPOINT.includes('FORM_ID');
+const msgs = fr
+  ? {
+      sending: 'Envoi en cours…',
+      sent: 'Merci, votre message a bien été envoyé. Je vous réponds dès que possible.',
+      error: "L'envoi a échoué. Vérifiez votre connexion et réessayez, ou écrivez-moi sur LinkedIn.",
+      invalid: 'Merci de renseigner votre nom, une adresse email valide et un message.'
+    }
+  : {
+      sending: 'Sending…',
+      sent: 'Thank you, your message has been sent. I will reply as soon as possible.',
+      error: 'Sending failed. Check your connection and try again, or reach me on LinkedIn.',
+      invalid: 'Please enter your name, a valid email address and a message.'
+    };
+const soon = fr
+  ? 'Le formulaire sera actif très bientôt. En attendant : LinkedIn.'
+  : 'The form will be live very soon. In the meantime: LinkedIn.';
+---
+<div class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Contact</h1>
+      <p>{fr ? 'Poste en R&D, collaboration de recherche ou intervention : écrivez-moi.' : 'R&D roles, research collaborations or talks: write to me.'}</p>
+    </div>
+    <div class="contact">
+      <form id="contact-form" novalidate method="post" action={FORMSPREE_ENDPOINT}
+        data-endpoint={FORMSPREE_ENDPOINT} data-sending={msgs.sending} data-sent={msgs.sent}
+        data-error={msgs.error} data-invalid={msgs.invalid}>
+        <label for="c-name"><span>{fr ? 'Nom' : 'Name'}</span><input id="c-name" name="name" autocomplete="name" required /></label>
+        <label for="c-mail"><span>Email</span><input id="c-mail" name="email" type="email" autocomplete="email" required /></label>
+        <label for="c-msg"><span>Message</span><textarea id="c-msg" name="message" required></textarea></label>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+        <input type="hidden" name="_subject" value={fr ? 'Nouveau message depuis le portfolio' : 'New message from the portfolio'} />
+        <div><button class="btn primary" type="submit" disabled={inactive}>{fr ? 'Envoyer le message' : 'Send message'}</button></div>
+        <p class="notice" id="form-msg" role="status" aria-live="polite" hidden={!inactive}>{inactive ? soon : ''}</p>
+      </form>
+      <ul class="side-links">
+        <li><a href={links.linkedin}>LinkedIn</a><span>in/arona-fall</span></li>
+        <li><a href={links.scholar}>Google Scholar</a><span>{fr ? 'Publications et citations' : 'Publications and citations'}</span></li>
+        <li><a href={links.orcid}>ORCID</a><span class="mono">0009-0002-9563-5326</span></li>
+        <li><a href={links.github}>GitHub</a><span>Rachidusfallensis</span></li>
+        <li><a href={url(links.cv)} download="Arona-Fall-CV.pdf">{fr ? 'Télécharger le CV (PDF)' : 'Download CV (PDF)'}</a><span>{fr ? 'En anglais, 2 pages' : 'English, 2 pages'}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px}
+  form{display:grid;gap:16px;max-width:560px}
+  label{display:grid;gap:6px;font-weight:600;font-size:15px}
+  input,textarea{font:400 16px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 12px}
+  input:focus,textarea:focus{border-color:var(--ink);outline:none}
+  input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--trace)}
+  textarea{min-height:140px;resize:vertical}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .notice{border-left:2px solid var(--trace);padding:6px 12px;font-size:15px;margin:0}
+  .notice[hidden]{display:none}
+  .side-links{list-style:none;margin:0;padding:0;display:grid;gap:12px;align-content:start}
+  .side-links a{font-weight:600}
+  .side-links span{display:block;font-size:14px;color:var(--graphite)}
+  @media (max-width:960px){ .contact{grid-template-columns:1fr} }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const msg = document.getElementById('form-msg');
+  const endpoint = form?.dataset.endpoint ?? '';
+  if (form && msg && !endpoint.includes('FORM_ID')) {
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const show = (text: string) => { msg.textContent = text; msg.hidden = false; };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('#c-name,#c-mail,#c-msg')];
+      let ok = true;
+      fields.forEach((f) => {
+        const bad = !f.value.trim() || !f.checkValidity();
+        f.setAttribute('aria-invalid', String(bad));
+        if (bad) ok = false;
+      });
+      if (!ok) { show(form.dataset.invalid!); fields.find((f) => f.getAttribute('aria-invalid') === 'true')?.focus(); return; }
+      btn.disabled = true;
+      show(form.dataset.sending!);
+      try {
+        const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        show(form.dataset.sent!);
+      } catch {
+        show(form.dataset.error!);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

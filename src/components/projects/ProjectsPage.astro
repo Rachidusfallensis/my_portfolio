@@ -1,0 +1,71 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { categories, projects } from '../../data/projects';
+import ProjectCard from './ProjectCard.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+---
+<div class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <h1>{fr ? 'Projets' : 'Projects'}</h1>
+      <p>{fr
+        ? "Ma recherche appliquée et mes projets annexes : des produits IA, des applications et des sites que j'ai conçus ou accompagnés. Chaque fiche part du problème ; ouvrez-la pour voir la réponse, mon rôle et la stack."
+        : 'My applied research and side projects: AI products, applications and websites I built or supported. Each card starts from the problem; open it to see the approach, my role and the stack.'}</p>
+    </div>
+    <div class="filters" role="group" aria-label={fr ? 'Catégories' : 'Categories'}>
+      {categories.map((c) => (
+        <button class="chip" type="button" data-f={c.key} aria-pressed={c.key === 'all' ? 'true' : 'false'}>{c.label[lang]}</button>
+      ))}
+    </div>
+    <div class="proj-grid" id="proj-grid">
+      {projects.map((p) => <ProjectCard project={p} lang={lang} />)}
+    </div>
+    <p class="empty" id="proj-empty" hidden>{fr ? 'Aucun projet dans cette catégorie.' : 'No project in this category.'}</p>
+  </div>
+</div>
+
+<style is:global>
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+  .chip{font:500 15px var(--sans);color:var(--ink);background:none;border:1px solid var(--rule);min-height:38px;padding:0 14px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+  .proj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  .proj{border:1px solid var(--rule);background:var(--paper)}
+  .proj summary{list-style:none;cursor:pointer;padding:18px 20px;display:grid;gap:4px}
+  .proj summary::-webkit-details-marker{display:none}
+  .proj summary:hover{background:var(--paper-2)}
+  .proj[open]{border-color:var(--ink)}
+  .proj .top{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--graphite)}
+  .proj .plus{font:500 16px var(--mono);color:var(--graphite);transition:transform .2s}
+  .proj[open] .plus{transform:rotate(45deg);color:var(--trace)}
+  .proj h3{margin:0;font-size:var(--s1);font-weight:650}
+  .proj .one{margin:0;font-size:16px;color:var(--graphite)}
+  .proj .body{padding:0 20px 20px;font-size:16px}
+  .proj .body p{margin:0 0 10px}
+  .proj .lbl{display:block;font-size:13px;font-weight:600;color:var(--graphite);margin-bottom:2px}
+  .proj .tags{margin-top:10px}
+  .proj .tags li{font:400 13px var(--sans);border:0;padding:2px 8px;background:var(--paper-2)}
+  .empty{color:var(--graphite)}
+  .empty[hidden],.proj[hidden]{display:none}
+  @media (max-width:960px){ .proj-grid{grid-template-columns:1fr} }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const cards = document.querySelectorAll<HTMLElement>('.proj');
+  const empty = document.getElementById('proj-empty');
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.f;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      let n = 0;
+      cards.forEach((card) => {
+        const show = f === 'all' || card.dataset.k === f;
+        card.hidden = !show;
+        if (show) n++;
+      });
+      if (empty) empty.hidden = n > 0;
+    });
+  });
+</script>
