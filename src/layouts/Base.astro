@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import { nav, routes, url, type Lang, type RouteKey } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  route: RouteKey;
+  title: string;        // page title without the site name
+  description: string;
+}
+const { lang, route, title, description } = Astro.props;
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const fullTitle = route === 'home' ? 'Arona Fall' + (lang === 'fr' ? ', IA et ingénierie système' : ', AI and systems engineering') : `${title} | Arona Fall`;
+const canonical = new URL(url(routes[route][lang]), Astro.site).href;
+const alt = (l: Lang) => new URL(url(routes[route][l]), Astro.site).href;
+---
+<!doctype html>
+<html lang={lang} data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="fr" href={alt('fr')} />
+  <link rel="alternate" hreflang="en" href={alt('en')} />
+  <link rel="alternate" hreflang="x-default" href={alt('fr')} />
+  <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script is:inline>
+    // Light by default; a stored "dark" choice is applied before first paint (no flash).
+    try { if (localStorage.getItem('af-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#main">{lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a>
+  <header class="top"><div class="wrap nav" id="nav-wrap">
+    <a class="wordmark" href={url(routes.home[lang])}>Arona Fall</a>
+    <nav id="nav" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
+      <ul>
+        {nav.map((n) => (
+          <li><a href={url(routes[n.key][lang])} aria-current={n.key === route ? 'page' : undefined}>
+            {n.label[lang]}{n.soon && <span class="soon">{lang === 'fr' ? 'à venir' : 'soon'}</span>}
+          </a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="tools">
+      <a class="tool" href={url(routes[route][other])} hreflang={other} lang={other}
+         aria-label={lang === 'fr' ? 'Read in English' : 'Lire en français'}>{other.toUpperCase()}</a>
+      <button class="tool" id="theme-btn" type="button" aria-pressed="false"
+              data-light={lang === 'fr' ? 'Thème : clair' : 'Theme: light'}
+              data-dark={lang === 'fr' ? 'Thème : sombre' : 'Theme: dark'}>{lang === 'fr' ? 'Thème : clair' : 'Theme: light'}</button>
+      <button class="tool menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </div></header>
+
+  <main id="main"><slot /></main>
+
+  <footer class="foot"><div class="wrap">
+    <span>© {new Date().getFullYear()} Arona Fall</span>
+    <span>{lang === 'fr' ? 'Site statique, sans traceur.' : 'Static site, no trackers.'}</span>
+  </div></footer>
+
+  <script>
+    const root = document.documentElement;
+    const btn = document.getElementById('theme-btn') as HTMLButtonElement;
+    const label = () => {
+      const dark = root.dataset.theme === 'dark';
+      btn.textContent = (dark ? btn.dataset.dark : btn.dataset.light) ?? '';
+      btn.setAttribute('aria-pressed', String(dark));
+    };
+    label();
+    btn.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('af-theme', root.dataset.theme); } catch (e) {}
+      label();
+      document.dispatchEvent(new CustomEvent('af-theme-change'));
+    });
+    const wrap = document.getElementById('nav-wrap')!, menu = document.getElementById('menu-btn')!;
+    menu.addEventListener('click', () => { const o = wrap.classList.toggle('open'); menu.setAttribute('aria-expanded', String(o)); });
+  </script>
+</body>
+</html>
