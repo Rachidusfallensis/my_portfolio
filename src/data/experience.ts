@@ -17,6 +17,7 @@ export type Xp = {
   where: L10n | string;
   badge?: L10n;
   ctx?: L10n;
+  refs?: { label: L10n; href?: string }[];
   acts: L10n[];
   partners?: { logos: Logo[]; eu: Logo };
 };
@@ -68,9 +69,14 @@ export const xps: Xp[] = [
     when: { fr: 'mars – août 2025', en: 'Mar – Aug 2025' },
     logos: [{ src: 'uppa-color.svg', alt: 'UPPA' }],
     title: { fr: 'Stage de M2, conception système guidée par l\'IA', en: 'MSc internship, AI-guided systems design' },
-    where: 'LIUPPA / IREKIA, Anglet',
+    where: 'LIUPPA / IREKIA (France 2030), Anglet',
+    ctx: { fr: "Stage et mémoire de M2 Industry 4.0, encadrés par Philippe Arnould : aider à la mise en place du Fablab Ingénierie numérique de l'UPPA, ouvert aux étudiants en septembre 2025.", en: "M2 Industry 4.0 internship and thesis, supervised by Philippe Arnould: helping set up UPPA's Engineering & Digital Fablab, which opened to students in September 2025." },
+    refs: [
+      { label: { fr: 'Mémoire : « AI-Guided Systems Design Methodology: Application to the Engineering & Digital Fablab »', en: 'Thesis: “AI-Guided Systems Design Methodology: Application to the Engineering & Digital Fablab”' } },
+      { label: { fr: 'Le Fablab Ingénierie numérique (UPPA)', en: 'The Engineering & Digital Fablab (UPPA, in French)' }, href: 'https://organisation.univ-pau.fr/fr/grands-projets/irekia/fablab-ingenierie-numerique.html' }
+    ],
     acts: [
-      { fr: "Modélisé le Fablab Ingénierie & Numérique avec ARCADIA, de l'analyse opérationnelle à l'architecture physique.", en: 'Modelled the Engineering & Digital Fablab with ARCADIA, from operational analysis to physical architecture.' },
+      { fr: "Modélisé le futur Fablab avec ARCADIA, de l'analyse opérationnelle à l'architecture physique, à partir d'entretiens et de documents, pour préparer sa mise en place.", en: 'Modelled the future Fablab with ARCADIA, from operational analysis to physical architecture, from interviews and documents, to prepare its set-up.' },
       { fr: "Prototypé la première version d'ARISE, point de départ de la thèse.", en: 'Prototyped the first version of ARISE, the starting point of the PhD.' },
       { fr: 'Comparé plusieurs approches RAG et GraphRAG ; assuré le support technique des Fablabs.', en: 'Compared RAG and GraphRAG approaches; provided technical support to the Fablabs.' }
     ]

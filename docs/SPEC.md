@@ -100,7 +100,7 @@ Format de chaque entrée : **contexte** (en une ligne : enjeu, échelle, partena
 - *Affichage* : une rangée discrète de logos des partenaires (voir §2.10), avec la mention « Co-funded by the European Union ».
 
 **④ Stagiaire de M2 en conception système guidée par l'IA · LIUPPA, projet IREKIA** · mars → août 2025
-- *Contexte* : IREKIA est une initiative de l'UPPA pour renforcer l'enseignement supérieur au Pays basque, avec la création d'un Fablab *Ingénierie & Numérique*.
+- *Contexte* : IREKIA est une initiative de l'UPPA pour renforcer l'enseignement supérieur au Pays basque, avec la création du Fablab *Ingénierie numérique* (ouvert aux étudiants en septembre 2025). Le stage et le mémoire de M2 (encadrés par Philippe Arnould, « AI-Guided Systems Design Methodology: Application to the Engineering & Digital Fablab ») ont servi à aider à sa mise en place.
 - **Modélisé** le Fablab avec la méthode ARCADIA (niveaux opérationnel, logique et physique), à partir d'entretiens et de documents. Livrables : le *Descriptive Requirements Document* et le *Guide de modélisation ARCADIA* du Fablab.
 - **Prototypé** la première version d'ARISE : génération d'exigences ARCADIA par LLM et RAG, testée sur une infrastructure locale. Ce travail est à l'origine de la thèse.
 - **Comparé** plusieurs approches RAG et GraphRAG (LangChain, Neo4j, Memgraph, LightRAG).

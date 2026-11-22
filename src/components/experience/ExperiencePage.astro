@@ -25,6 +25,7 @@ const asset = (f: string) => url(`/assets/${f}`);
         {x.badge && <span class="badge">{x.badge[lang]}</span>}
         {x.ctx && <p class="ctx">{x.ctx[lang]}</p>}
         <ul class="acts">{x.acts.map((a) => <li>{a[lang]}</li>)}</ul>
+        {x.refs && <ul class="refs">{x.refs.map((r) => <li>{r.href ? <a href={r.href} target="_blank" rel="noopener">{r.label[lang]}</a> : r.label[lang]}</li>)}</ul>}
         {x.partners && (
           <div class="partners" aria-label="SAFE partners">
             {x.partners.logos.map((l) => <img src={asset(l.src)} alt={l.alt} />)}
@@ -58,6 +59,7 @@ const asset = (f: string) => url(`/assets/${f}`);
   .xp h3{margin:0;font-size:var(--s2);font-weight:600;letter-spacing:-.01em;line-height:1.25}
   .xp .where{margin:4px 0 12px;color:var(--graphite);font-size:16px}
   .xp .ctx{margin:0 0 12px;max-width:68ch}
+  .xp .refs{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--rule);display:grid;gap:6px;font-size:14.5px;color:var(--graphite);max-width:68ch}
   .xp ul.acts{margin:0;padding-left:18px;max-width:68ch}
   .xp ul.acts li{margin-bottom:6px}
   .badge{display:inline-block;font-size:13.5px;font-weight:600;border:1px solid var(--trace);color:var(--trace);padding:2px 8px;margin:0 0 12px}
